@@ -5,9 +5,13 @@ function register()
        const number=document.getElementById('number').value;
        const date=document.getElementById('date').value;
        const time=document.getElementById('time').value;
-       localStorage.setItem('name',name);
-       localStorage.setItem('email',mail);
-       localStorage.setItem('number',number);
-       localStorage.setItem('date',date);
-       localStorage.setItem('time',time);
+       let myobj={
+        'name':name,
+        'email':mail,
+        'number':number,
+        'date':date,
+        'time':time
+       }
+       let myobj_serialized=JSON.stringify(myobj);
+       localStorage.setItem('myobj',myobj_serialized);
     }
