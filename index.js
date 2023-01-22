@@ -13,5 +13,5 @@ function register()
         'time':time
        }
        let myobj_serialized=JSON.stringify(myobj);
-       localStorage.setItem('myobj',myobj_serialized);
+       localStorage.setItem(mail,myobj_serialized);
     }
