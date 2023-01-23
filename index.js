@@ -12,27 +12,35 @@ function register(e)
         'number':number,
         'date':date,
         'time':time
-       }
+       } 
        let myobj_serialized=JSON.stringify(myobj);
        localStorage.setItem(mail,myobj_serialized);
+       let parentele=document.createElement('ul');
+       parentele.id='listofitems';
+      let childele=document.createElement('li');
+      childele.textContent=" "+name+" "+mail+" "+number+" "+date+" "+time;
+      let dele=document.createElement('input')
+      dele.type='button';
+      dele.value='delete';
+      let edi=document.createElement('input');
+      edi.type='button';
+      edi.value='edit';
+      
+      dele.onclick=()=>{
+         localStorage.removeItem(childele);
+         parentele.removeChild(childele);
+      }
+      edi.onclick=()=>{
+         document.getElementById('name').value=name;
+         document.getElementById('email').value=mail;
+         document.getElementById('number').value=number;
+         localStorage.removeItem(childele);
+         parentele.removeChild(childele);
+      }
+      childele.appendChild(dele);
+      childele.appendChild(edi);
+      parentele.appendChild(childele);
+      bod.appendChild(parentele);
+  
        
     }
-let sub=document.querySelector('#asd');
-sub.addEventListener('submit',showlist)
-function showlist()
-{
-   let parentele=document.createElement('listofitems');
-   let childele=document.createElement('li');
-   childele.textContent=name+" "+mail+" "+number+" "+date+" "+time;
-
-   const delebtn=document.createElement('input');
-   delebtn.type='button';
-   delebtn.value='delete';
-   delebtn.onclick=()=>{
-     localStorage.removeItem(mail);
-     parentele.removeChild(childele);
-   }
-   childele.appendChild(delebtn);
-   parentele.appendChild(childele);
-   bod.appendChild(parentele);
-}
