@@ -6,31 +6,33 @@
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="container-sm" style="border: 2px solid; width: 70%;">
-<form action="#" onsubmit="register()">
+    <div class="container-sm p-5" style="border: 2px solid; width: 70%;">
+<form action="#" onsubmit="register(event)" id="frm">
     <div class="container">
-    <h2 style="color:orange  ;text-align: center;">Book a call</h2>
-    <p  style="text-align: center; ">book a call slot and our representative will call within 1hr of selected time</p>
+    <h2 class="text-warning text-center">Book a call</h2>
+    <p class="text-center">book a call slot and our representative will call within 1hr of selected time</p>
 </div>
     <hr>
-    <label class="form-label" for="name">Name</label><br>
-    <input class="form-control" type="text" id="name" size="100%">
-    <label class="form-label" for="email">Email</label><br>
-    <input class="form-control" type="text" id="email" size="100%"><br>
-    <div class="invalid-feedback">invalid email</div>
-    <div class="valid-feedback">valid email</div>
-    <label class="form-label" for="number">Number</label><br>
-    <input class="form-control" type="number" id="number""><br>
-    <label class="form-label" for="time">Time for call</label><br>
-    <input class="form-control-sm" type="date" id="date">  <input class="form-control-sm" type="time" id="time"><br>
-    <button id="asd" class="btn btn-warning btn-lg my-2" style="width: 100%;">Get a call</button>
-
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" name="name" id="name" size="100%">
+    </div>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" name="email" size="100%">
+        <div class="invalid-feedback">invalid email</div>
+        <div class="valid-feedback">valid email</div>
+    </div>
+    <div class="form-group">
+        <label for="number">Number</label>
+        <input type="number" class="form-control" name="number" id="number">
+    </div>
+    <button id="asd" class="btn btn-primary btn-lg btn-block my-2">Get a call</button>
  </form>
 </div>
-
-<script src="<scrip src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.6/axios.min.js"></script>
 <script src="index.js"></script>
- 
 </body>
-
 </html>
+
+

@@ -1,46 +1,66 @@
-let bod=document.querySelector('body');
-function register(e)
-    {
-       const name= document.getElementById('name').value;
-       const mail=document.getElementById('email').value;
-       const number=document.getElementById('number').value;
-       const date=document.getElementById('date').value;
-       const time=document.getElementById('time').value;
-       let myobj={
-        'name':name,
-        'email':mail,
-        'number':number,
-        'date':date,
-        'time':time
-       } 
-       let myobj_serialized=JSON.stringify(myobj);
-       localStorage.setItem(mail,myobj_serialized);
-       let parentele=document.createElement('ul');
-       parentele.id='listofitems';
-      let childele=document.createElement('li');
-      childele.textContent=" "+name+" "+mail+" "+number+" "+date+" "+time;
-      let dele=document.createElement('input')
-      dele.type='button';
-      dele.value='delete';
-      let edi=document.createElement('input');
-      edi.type='button';
-      edi.value='edit';
-      
-      dele.onclick=()=>{
-         localStorage.removeItem(childele);
-         parentele.removeChild(childele);
-      }
-      edi.onclick=()=>{
-         document.getElementById('name').value=name;
-         document.getElementById('email').value=mail;
-         document.getElementById('number').value=number;
-         localStorage.removeItem(childele);
-         parentele.removeChild(childele);
-      }
-      childele.appendChild(dele);
-      childele.appendChild(edi);
-      parentele.appendChild(childele);
-      bod.appendChild(parentele);
-  
-       
+function register(event)
+{
+  event.preventDefault()
+    let name=event.target.name.value;
+    let email=event.target.email.value;
+    let number=event.target.number.value;
+
+    let obj={
+      name,
+      email,
+      number
     }
+
+    // sending data
+    axios.post('https://crudcrud.com/api/a2090cc030f84e3f974debe8a0f78446/validatedata',obj)
+    .then((res)=>{
+      showuserdetails(res.data)
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
+}
+function showuserdetails(data)
+{
+    let parele=document.getElementById('frm');
+    let childele=`<li id='${data._id}'>${data.name} ${data.email} ${data.number}
+                          <button class='btn btn-primary btn-sm' onClick=deluser('${data._id}')>Delete</button>
+                          <button class='btn btn-primary btn-sm' onClick=edituser('${data.name}','${data.email}','${data.number}','${data._id}')>Edit</button></li>`
+    parele.innerHTML=parele.innerHTML+childele;
+}
+function deluser(id)
+{
+  axios.delete(`https://crudcrud.com/api/a2090cc030f84e3f974debe8a0f78446/validatedata/${id}`)
+  .then(
+    removeuser(id)
+  )
+  .catch((err)=>console.log(err));
+
+}
+function removeuser(id)
+{
+  let parnode=document.getElementById('frm');
+  let childnode=document.getElementById(id)
+  if(childnode)
+  {
+    parnode.removeChild(childnode)
+  }
+}
+function edituser(name,email,number,id)
+{
+  document.getElementById('name').value=name;
+  document.getElementById('email').value=email;
+  document.getElementById('number').value=number;
+
+  deluser(id)
+}
+window.addEventListener('DOMContentLoaded',()=>{
+  axios.get('https://crudcrud.com/api/a2090cc030f84e3f974debe8a0f78446/validatedata')
+  .then((res)=>{
+      console.log(res.data)
+      for(var i=0;i<res.data.length;i++)
+      {
+          showuserdetails(res.data[i]);
+      }
+  })
+})
