@@ -1,3 +1,5 @@
+var uid=null;
+let bod=document.querySelector('body');
 function register(event)
 {
   event.preventDefault()
@@ -11,14 +13,24 @@ function register(event)
       number
     }
 
-    // sending data
-    axios.post('https://crudcrud.com/api/a2090cc030f84e3f974debe8a0f78446/validatedata',obj)
+    if(uid===null){
+    axios.post('https://crudcrud.com/api/e34c9de741a8416c84d52b9af18306f0/validatedata',obj)
     .then((res)=>{
       showuserdetails(res.data)
     })
     .catch((err)=>{
       console.log(err);
+    })}
+    else{
+      axios.put(`https://crudcrud.com/api/e34c9de741a8416c84d52b9af18306f0/validatedata/${uid}`,obj)
+    .then((res)=>{
+      showuserdetails(res.data);
+      uid=null;
     })
+    .catch((err)=>{
+      console.log(err);
+    })
+    }
 }
 function showuserdetails(data)
 {
@@ -30,7 +42,7 @@ function showuserdetails(data)
 }
 function deluser(id)
 {
-  axios.delete(`https://crudcrud.com/api/a2090cc030f84e3f974debe8a0f78446/validatedata/${id}`)
+  axios.delete(`https://crudcrud.com/api/e34c9de741a8416c84d52b9af18306f0/validatedata/${id}`)
   .then(
     removeuser(id)
   )
@@ -51,11 +63,11 @@ function edituser(name,email,number,id)
   document.getElementById('name').value=name;
   document.getElementById('email').value=email;
   document.getElementById('number').value=number;
-
-  deluser(id)
+  uid=id;
+  removeuser(id);
 }
 window.addEventListener('DOMContentLoaded',()=>{
-  axios.get('https://crudcrud.com/api/a2090cc030f84e3f974debe8a0f78446/validatedata')
+  axios.get('https://crudcrud.com/api/e34c9de741a8416c84d52b9af18306f0/validatedata')
   .then((res)=>{
       console.log(res.data)
       for(var i=0;i<res.data.length;i++)
